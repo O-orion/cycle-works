@@ -1,0 +1,17 @@
+<nav class="navbar" [ngClass]="{'dark-mode': isDarkMode}">
+  <div class="brand">
+    <h1>Cycle Works</h1>
+  </div>
+  <ul class="nav-links">
+    <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+    <li><a routerLink="/control" routerLinkActive="active">Controle</a></li>
+    <li *ngIf="isAdmin"><a routerLink="/products" routerLinkActive="active">Produtos</a></li>
+    <li *ngIf="isAdmin"><a routerLink="/employees" routerLinkActive="active">Funcionários</a></li>
+    <li *ngIf="isAdmin"><a routerLink="/roles" routerLinkActive="active">Papéis</a></li>
+    <li *ngIf="isAdmin"><a routerLink="/reports" routerLinkActive="active">Relatórios</a></li>
+  </ul>
+  <button class="theme-toggle" (click)="toggleTheme()">
+    <span *ngIf="isDarkMode">☀️</span>
+    <span *ngIf="!isDarkMode">🌙</span>
+  </button>
+</nav>

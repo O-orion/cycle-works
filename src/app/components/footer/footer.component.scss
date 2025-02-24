@@ -1,0 +1,31 @@
+@use "../../styles/variables" as *;
+
+.footer {
+  padding: $spacing-unit * 2;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  &.dark-mode {
+    background: $dark-bg;
+    color: $text-light;
+  }
+
+  &:not(.dark-mode) {
+    background: $light-bg;
+    color: $text-dark;
+  }
+
+  a {
+    color: $cycle-gold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+};

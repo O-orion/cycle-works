@@ -1,0 +1,77 @@
+@use "../../styles/variables" as *;
+
+.navbar {
+  padding: $spacing-unit * 2 $spacing-unit * 4;
+  background: $dark-bg;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+  &.dark-mode {
+    background: $dark-bg;
+    color: $text-light;
+  }
+
+  &:not(.dark-mode) {
+    background: $light-bg;
+    color: $text-dark;
+  }
+
+  .brand h1 {
+    font-family: $font-title;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: $cycle-gold;
+    margin: 0;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: $spacing-unit * 3;
+    margin: 0;
+    padding: 0;
+
+    li a {
+      font-family: $font-body;
+      font-size: 1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+
+      &:hover, &.active {
+        color: $cycle-gold;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .theme-toggle {
+    background: none;
+    border: 2px solid $cycle-gold;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: rgba($cycle-gold, 0.2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: $spacing-unit * 2;
+    gap: $spacing-unit * 2;
+
+    .nav-links {
+      flex-direction: column;
+      gap: $spacing-unit * 2;
+      text-align: center;
+    }
+  }
+}
