@@ -1,1 +1,75 @@
-<p>dashboard works!</p>
+<section class="dashboard" [ngClass]="{'dark-mode': isDarkMode}">
+  <div class="dashboard-container">
+    <header>
+      <h1>Dashboard</h1>
+      <p class="subtitle">Controle sustentável do seu estoque em tempo real</p>
+    </header>
+    <div class="cycle-dashboard">
+      <svg class="cycle-circle" viewBox="0 0 300 300">
+        <defs>
+          <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color: rgba(212, 175, 55, 0.8)" />
+            <stop offset="100%" style="stop-color: rgba(76, 175, 80, 0.8)" />
+          </linearGradient>
+        </defs>
+        <circle cx="150" cy="150" r="120" fill="none" stroke="url(#circleGradient)" stroke-width="4" stroke-dasharray="8,8" />
+        <g *ngFor="let item of stockItems; let i = index" class="cycle-item" (click)="selectItem(item)">
+          <circle [attr.cx]="item.x" [attr.cy]="item.y" r="20" [attr.fill]="item.phaseColor" stroke="#D4AF37" stroke-width="2" class="item-circle" />
+          <image [attr.x]="item.x - 12" [attr.y]="item.y - 12" width="24" height="24" [attr.href]="item.icon" class="item-icon" />
+          <text [attr.x]="item.x" [attr.y]="item.y + 30" text-anchor="middle" class="item-label">{{ item.name }}</text>
+        </g>
+      </svg>
+      <div class="dashboard-charts">
+        <div class="chart-card">
+          <h3>Distribuição por Fase</h3>
+          <canvas id="phaseChart" height="150"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Tendência (30 dias)</h3>
+          <canvas id="trendChart" height="150"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Itens Críticos</h3>
+          <canvas id="criticalChart" height="150"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="stats-and-details">
+      <div class="stats-panel">
+        <div class="stat-card">
+          <h3>Total em Estoque</h3>
+          <p>{{ totalStock }}</p>
+        </div>
+        <div class="stat-card">
+          <h3>% Reaproveitado</h3>
+          <p>{{ reaproveitamentoPercent }}%</p>
+        </div>
+        <div class="stat-card">
+          <h3>Itens Críticos</h3>
+          <p>{{ criticalItems }}</p>
+        </div>
+        <div class="stat-card">
+          <h3>Eficiência</h3>
+          <p>{{ efficiencyPercent }}%</p>
+        </div>
+      </div>
+      <div class="details-and-suggestions">
+        <div class="details-panel" *ngIf="selectedItem">
+          <h2>{{ selectedItem.name }}</h2>
+          <p class="status">Fase: <span>{{ selectedItem.phase }}</span></p>
+          <p>Quantidade: {{ selectedItem.quantity }}</p>
+          <p>Última Movimentação: {{ selectedItem.lastMovement }}</p>
+          <p>Tendência: {{ selectedItem.trend > 0 ? '+' + selectedItem.trend : selectedItem.trend }}% (30 dias)</p>
+          <p>{{ selectedItem.description }}</p>
+          <canvas id="itemChart" height="120"></canvas>
+        </div>
+        <div class="suggestions-panel" *ngIf="suggestion">
+          <div class="suggestion-card">
+            <p>{{ suggestion.message }}</p>
+            <button class="action-btn" (click)="takeAction(suggestion.action)">{{ suggestion.actionLabel }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

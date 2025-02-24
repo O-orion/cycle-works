@@ -1,0 +1,355 @@
+@use "../../styles/variables" as *;
+
+.dashboard {
+  min-height: 100vh;
+  padding: $spacing-unit  $spacing-unit * 2 $spacing-unit * 8 $spacing-unit * 2;
+  background: linear-gradient(135deg, $light-bg 0%, darken($light-bg, 5%) 100%);
+  transition: background 0.5s ease;
+
+  &.dark-mode {
+    background: linear-gradient(135deg, $dark-bg 0%, darken($dark-bg, 10%) 100%);
+  }
+
+  .dashboard-container {
+    max-width: 1200px;
+    margin: $spacing-unit * 8 auto 0;
+    text-align: center;
+
+    header {
+      margin-bottom: $spacing-unit * 4;
+
+      h1 {
+        font-family: $font-title;
+        font-size: 2rem;
+        font-weight: 600;
+        color: $cycle-gold;
+        text-shadow: 0 2px 4px rgba($cycle-gold, 0.2);
+      }
+
+      .subtitle {
+        font-family: $font-body;
+        font-size: 1rem;
+        color: $text-light;
+
+        .dark-mode & {
+          color: $text-dark;
+        }
+      }
+    }
+
+    .cycle-dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: $spacing-unit * 3;
+      margin-bottom: $spacing-unit * 4;
+
+      .cycle-circle {
+        width: 300px;
+        height: 300px;
+        animation: rotate 20s infinite linear;
+        filter: drop-shadow(0 4px 10px rgba($cycle-gold, 0.3));
+
+        .cycle-item {
+          cursor: pointer;
+
+          .item-circle {
+            stroke: $cycle-gold;
+            stroke-width: 2;
+            transition: transform 0.3s ease, fill 0.3s ease;
+            filter: drop-shadow(0 2px 5px rgba($cycle-gold, 0.2));
+
+            &:hover {
+              transform: scale(1.1);
+              fill: rgba($cycle-gold, 0.4);
+            }
+          }
+
+          .item-icon {
+            width: 24px;
+            height: 24px;
+            transition: filter 0.3s ease;
+
+            &:hover {
+              filter: brightness(1.2);
+            }
+          }
+
+          .item-label {
+            font-family: $font-body;
+            font-size: 0.8rem;
+            fill: $text-light;
+
+            .dark-mode & {
+              fill: $text-dark;
+            }
+          }
+        }
+      }
+
+      .dashboard-charts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-unit * 2;
+        justify-content: center;
+
+        .chart-card {
+          background: rgba($text-dark, 0.1);
+          padding: $spacing-unit * 2;
+          border-radius: 8px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          width: 280px;
+          transition: transform 0.3s ease;
+
+          .dark-mode & {
+            background: rgba($text-light, 0.1);
+          }
+
+          &:hover {
+            transform: translateY(-2px);
+          }
+
+          h3 {
+            font-family: $font-title;
+            font-size: 1rem;
+            color: $cycle-gold;
+            margin-bottom: $spacing-unit;
+          }
+
+          canvas {
+            width: 100%;
+            max-width: 280px;
+          }
+        }
+      }
+    }
+
+    .stats-and-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-unit * 3;
+      justify-content: center;
+
+      .stats-panel {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-unit * 2;
+        justify-content: center;
+        width: 100%;
+        max-width: 400px;
+
+        .stat-card {
+          background: rgba($text-dark, 0.1);
+          padding: $spacing-unit * 2;
+          border-radius: 8px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          width: 180px;
+          transition: transform 0.3s ease;
+
+          .dark-mode & {
+            background: rgba($text-light, 0.1);
+          }
+
+          &:hover {
+            transform: translateY(-2px);
+          }
+
+          h3 {
+            font-family: $font-title;
+            font-size: 1rem;
+            color: $cycle-gold;
+            margin-bottom: $spacing-unit;
+          }
+
+          p {
+            font-family: $font-body;
+            font-size: 1.2rem;
+            color: $text-light;
+
+            .dark-mode & {
+              color: $text-dark;
+            }
+          }
+        }
+      }
+
+      .details-and-suggestions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-unit * 2;
+        justify-content: center;
+        width: 100%;
+        max-width: 400px;
+
+        .details-panel {
+          width: 100%;
+          padding: $spacing-unit * 2;
+          background: rgba($text-dark, 0.1);
+          border-radius: 10px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+          text-align: left;
+
+          .dark-mode & {
+            background: rgba($text-light, 0.1);
+          }
+
+          h2 {
+            font-family: $font-title;
+            font-size: 1.5rem;
+            color: $cycle-gold;
+            margin-bottom: $spacing-unit;
+          }
+
+          .status {
+            font-family: $font-body;
+            font-size: 1rem;
+            color: $text-light;
+            margin-bottom: $spacing-unit;
+
+            .dark-mode & {
+              color: $text-dark;
+            }
+
+            span {
+              font-weight: 600;
+              color: $eco-green;
+            }
+          }
+
+          p {
+            font-family: $font-body;
+            font-size: 0.9rem;
+            color: $text-light;
+            margin-bottom: $spacing-unit;
+
+            .dark-mode & {
+              color: $text-dark;
+            }
+          }
+
+          canvas {
+            width: 100%;
+            max-width: 350px;
+          }
+        }
+
+        .suggestions-panel {
+          width: 100%;
+
+          .suggestion-card {
+            background: rgba($light-green, 0.3);
+            padding: $spacing-unit * 2;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in;
+
+            .dark-mode & {
+              background: rgba($eco-green, 0.3);
+            }
+
+            p {
+              font-family: $font-body;
+              font-size: 0.9rem;
+              color: $text-light;
+              margin-bottom: $spacing-unit;
+
+              .dark-mode & {
+                color: $text-dark;
+              }
+            }
+
+            .action-btn {
+              background: $eco-green;
+              color: $text-dark;
+              border: none;
+              padding: $spacing-unit $spacing-unit * 2;
+              border-radius: 6px;
+              font-family: $font-body;
+              font-size: 0.9rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: background 0.3s ease, transform 0.2s ease;
+
+              &:hover {
+                background: lighten($eco-green, 10%);
+                transform: translateY(-2px);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: $spacing-unit * 3 $spacing-unit;
+
+    .dashboard-container {
+      margin-top: $spacing-unit * 6;
+
+      header {
+        h1 { font-size: 1.8rem; }
+        .subtitle { font-size: 0.9rem; margin-bottom: $spacing-unit * 3; }
+      }
+
+      .cycle-dashboard {
+        .cycle-circle {
+          width: 250px;
+          height: 250px;
+        }
+
+        .dashboard-charts .chart-card {
+          width: 250px;
+        }
+      }
+
+      .stats-panel .stat-card {
+        width: 160px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: $spacing-unit * 2 $spacing-unit;
+
+    .dashboard-container {
+      header {
+        h1 { font-size: 1.5rem; }
+        .subtitle { font-size: 0.85rem; }
+      }
+
+      .cycle-dashboard {
+        .cycle-circle {
+          width: 200px;
+          height: 200px;
+
+          .cycle-item {
+            .item-circle { r: 15; }
+            .item-icon { width: 20px; height: 20px; x: -10; y: -10; }
+            .item-label { font-size: 0.7rem; y: 25; }
+          }
+        }
+
+        .dashboard-charts .chart-card {
+          width: 200px;
+          padding: $spacing-unit;
+        }
+      }
+
+      .stats-panel .stat-card {
+        width: 140px;
+        padding: $spacing-unit;
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
