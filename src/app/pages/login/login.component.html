@@ -1,1 +1,37 @@
-<p>login works!</p>
+<section class="login" [ngClass]="{'dark-mode': isDarkMode}">
+  <div class="login-container">
+    <h1>Bem-vindo ao Cycle Works</h1>
+    <p class="subtitle">Faça login para transformar seu estoque de forma sustentável.</p>
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Digite seu e-mail"
+          [class.invalid]="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || submitted)"
+        >
+        <span class="error" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || submitted)">
+          Por favor, insira um e-mail válido.
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Digite sua senha"
+          [class.invalid]="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || submitted)"
+        >
+        <span class="error" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || submitted)">
+          A senha é obrigatória.
+        </span>
+      </div>
+      <button class="login-btn" type="submit" [disabled]="loginForm.invalid">Entrar</button>
+    </form>
+    <p class="error" *ngIf="loginError">{{ loginError }}</p>
+  </div>
+  <div class="background-circle"></div>
+</section>

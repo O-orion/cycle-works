@@ -1,0 +1,195 @@
+@use "../../styles/variables" as *;
+
+.login {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, $light-bg 0%, darken($light-bg, 5%) 100%);
+  transition: background 0.5s ease;
+
+  &.dark-mode {
+    background: linear-gradient(135deg, $dark-bg 0%, darken($dark-bg, 10%) 100%);
+  }
+
+  .login-container {
+    margin-top: 50px;
+    text-align: center;
+    padding: $spacing-unit * 4;
+    background: rgba($text-dark, 0.05); // Usando $text-dark com opacidade pra fundo sutil
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    animation: fadeIn 0.5s ease-in;
+
+    h1 {
+      font-family: $font-title;
+      font-size: 2rem;
+      font-weight: 600;
+      color: $cycle-gold;
+      margin-bottom: $spacing-unit * 2;
+    }
+
+    .subtitle {
+      font-family: $font-body;
+      font-size: 1rem;
+      color: $text-light;
+      margin-bottom: $spacing-unit * 3;
+
+      .dark-mode & {
+        color: $text-light;
+      }
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-unit * 2;
+
+      .form-group {
+        text-align: left;
+
+        label {
+          font-family: $font-body;
+          font-size: 0.9rem;
+          color: $text-light;
+          margin-bottom: $spacing-unit;
+
+          .dark-mode & {
+            color: $text-light;
+          }
+        }
+
+        input {
+          width: 100%;
+          padding: $spacing-unit $spacing-unit * 2;
+          border: 2px solid $cycle-gold;
+          border-radius: 6px;
+          background: transparent;
+          font-family: $font-body;
+          font-size: 1rem;
+          color: $text-light;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+          .dark-mode & {
+            color: $text-light;
+          }
+
+          &:focus {
+            border-color: $eco-green;
+            box-shadow: 0 0 8px rgba($eco-green, 0.3);
+            outline: none;
+          }
+
+          &.invalid {
+            border-color: #e63946; // Vermelho de erro mantido
+          }
+        }
+
+        .error {
+          font-family: $font-body;
+          font-size: 0.85rem;
+          color: #e63946;
+          margin-top: $spacing-unit / 2;
+        }
+      }
+
+      .login-btn {
+        background: $eco-green;
+        color: $text-dark;
+        border: none;
+        border-radius: 15px;
+        width: 50%;
+        height: 50px;
+        font-family: $font-body;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        align-self: center;
+
+        &:hover:not(:disabled) {
+          background: lighten($eco-green, 10%);
+          transform: scale(1.05);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .error {
+      font-family: $font-body;
+      font-size: 0.9rem;
+      color: #e63946;
+      margin-top: $spacing-unit * 2;
+    }
+  }
+
+  .background-circle {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba($cycle-gold, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    animation: pulse 4s infinite ease-in-out;
+  }
+
+  @media (max-width: 768px) {
+    .login-container {
+      padding: $spacing-unit * 3;
+
+      h1 { font-size: 1.8rem; }
+      .subtitle { font-size: 0.9rem; }
+
+      .login-btn {
+        width: 80px;
+        height: 80px;
+        font-size: 1rem;
+      }
+    }
+
+    .background-circle {
+      width: 400px;
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .login-container {
+      padding: $spacing-unit * 2;
+
+      h1 { font-size: 1.5rem; }
+      .subtitle { font-size: 0.85rem; }
+
+      .login-btn {
+        width: 70px;
+        height: 70px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .background-circle {
+      width: 300px;
+      height: 300px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+}
